@@ -46,7 +46,7 @@ var lastScrollTop = 0;
 
 function scrollfunction(){
     var header;
-    header =  document.querySelector('.header')
+    header =  document.querySelector('.header');
     var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
    if (st > lastScrollTop){
       // downscroll code
