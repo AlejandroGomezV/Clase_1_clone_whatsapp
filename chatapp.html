@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="scriptchatapp.js"></script>
 </head>
-<body>
+<body onscroll="scrollfunction()" onload="incializarPantallas()">
     <!--shorcut div.header>div.appname+div.search+div.submenu-->
     <div class="header">
         <div class="appname" onclick="duplicate()">Chatapp</div>
@@ -33,20 +33,30 @@
         <div id="bottom-line" class="llamadas" onclick="activetab(2)">LLAMADAS</div>
     </div>
     <!--div.row>div.icon+(div.content>div.chatname+div.timedate+div.contactname+div.status)-->
-    <div class="row">
-        <div class="icon">
-            <img src="black-power-button-1428134_640.png" alt="Avatar" height="30px" width="30px" srcset="">
-        </div>
-        <div class="content">
-            <div class="top-row">
-                <div class="chatname">Ciencias</div>
-                <div class="timedata">7:43 a.m.</div>
+    <div id="tabs">
+        <div class="tabchats">
+            <div class="row">
+                <div class="icon">
+                    <img src="black-power-button-1428134_640.png" alt="Avatar"      height="30px" width="30px" srcset="">
+                </div>
+                <div class="content">
+                    <div class="top-row">
+                        <div class="chatname">Ciencias</div>
+                        <div class="timedata">7:43 a.m.</div>
+                    </div>
+                    <div class="bottom-row">
+                        <div class="contactname">Samuel: Buen día!</div>
+                        <div class="status">1</div>
+                    </div>
+                </div>
             </div>
-            <div class="bottom-row">
-                <div class="contactname">Samuel: Buen día!</div>
-                <div class="status">1</div>
-            </div>
         </div>
+    </div>
+    <div id="tabs">
+        <h1>Pantalla Estados</h1>
+    </div>
+    <div id="tabs">
+        <h1>Pantalla Llamadas</h1>
     </div>
 </body>
 </html>
