@@ -87,8 +87,12 @@ h1 {
     display: flex;
     align-items: center;
     align-content: center;
-    padding-bottom: 10px;
-    padding-bottom: 10px;
+    padding-top: 10px;
+    transition-duration: .5s;
+}
+
+.row:hover {
+    background-color: lightgray;
 }
 
 .icon {
@@ -108,7 +112,7 @@ h1 {
     display: flex;
 }
 
-.chatname, .contactname {
+.chatname, .contactname, .statename, .statetime {
     flex: 5 1 auto;
 }
 
@@ -118,7 +122,7 @@ h1 {
     padding-right: 20px;
 }
 
-.chatname {
+.chatname, .statename {
     font-weight: bold;
 }
 
@@ -132,4 +136,16 @@ h1 {
     width: 25px;
     text-align: center;
     font-weight: bold;
+}
+
+.separadores {
+    background-color: lightgrey;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.tabestados .content {
+    border-bottom: none;
 }
