@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="stylechatapp.css">
+    <script src="scriptchatapp.js"></script>
+</head>
+<body>
+    <!--shorcut div.header>div.appname+div.search+div.submenu-->
+    <div class="header">
+        <div class="appname" onclick="duplicate()">Chatapp</div>
+        <div class="space"></div>
+        <div class="search">S</div>
+        <div class="submenu">SM</div>
+    </div>
+    <!--div.menu>div.camara+div.chats+div.estados+div.llamadas-->
+    <div class="menu">
+        <div class="camara">C</div>
+        <div id="bottom-line" class="chats" onclick="activetab(0)">CHATS</div>
+        <div id="bottom-line" class="estados" onclick="activetab(1)">ESTADOS</div>
+        <div id="bottom-line" class="llamadas" onclick="activetab(2)">LLAMADAS</div>
+    </div>
+    <!--div.row>div.icon+(div.content>div.chatname+div.timedate+div.contactname+div.status)-->
+    <div class="row">
+        <div class="icon">
+            <img src="black-power-button-1428134_640.png" alt="Avatar" height="30px" width="30px" srcset="">
+        </div>
+        <div class="content">
+            <div class="top-row">
+                <div class="chatname">Ciencias</div>
+                <div class="timedata">7:43 a.m.</div>
+            </div>
+            <div class="bottom-row">
+                <div class="contactname">Samuel: Buen día!</div>
+                <div class="status">1</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
