@@ -1,3 +1,11 @@
+<!--
+    Autor: Manuel Alejandro Gomez Vazquez
+    Universad Interamericana Para El Desarrollo
+    Materia: Aplicaciones Moviles para internet
+    Profesor: Jesus Alberto Revilla Silva
+    Clase 1
+    Aplicacion Chat (Whatsapp clon)
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
     <link rel="stylesheet" href="stylechatapp.css">
+    <!--Referencia a bootstrap 3-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="scriptchatapp.js"></script>
 </head>
 <body>
@@ -12,12 +22,12 @@
     <div class="header">
         <div class="appname" onclick="duplicate()">Chatapp</div>
         <div class="space"></div>
-        <div class="search">S</div>
-        <div class="submenu">SM</div>
+        <div class="search"><i class="glyphicon glyphicon-search"></i></div>
+        <div class="submenu"><i class="glyphicon glyphicon-option-vertical"></i></div>
     </div>
     <!--div.menu>div.camara+div.chats+div.estados+div.llamadas-->
     <div class="menu">
-        <div class="camara">C</div>
+        <div class="camara"><i class="glyphicon glyphicon-camera"></i></div>
         <div id="bottom-line" class="chats" onclick="activetab(0)">CHATS</div>
         <div id="bottom-line" class="estados" onclick="activetab(1)">ESTADOS</div>
         <div id="bottom-line" class="llamadas" onclick="activetab(2)">LLAMADAS</div>
