@@ -22,6 +22,10 @@ function duplicate(){
     var row = document.querySelector('.tabchats').innerHTML;
     //concatena la informacion de row, duplicando el renglon
     document.querySelector('.tabchats').innerHTML += row;
+
+    //proceso para duplicar el elemento row de las llamadas
+    var rowllamada = document.querySelector('.tabllamadas').innerHTML;
+    document.querySelector('.tabllamadas').innerHTML += rowllamada;
 };
 
 //funcion para cambiar de pestaña
@@ -30,6 +34,7 @@ function activetab(tab){
     //obtiene un arreglo de los elementos html con el id #bottom-line
     var tabestados = document.querySelectorAll('#bottom-line');
     var tabs = document.querySelectorAll('#tabs');
+    //console.log(tabs[tab]);
     //se recorre el arreglo para acceder a cada elemento
     for (var i = 0; i<tabestados.length; i++){
         //se elimina el borde inferior para cada uno de los elementos
