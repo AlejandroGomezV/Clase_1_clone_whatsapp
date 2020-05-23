@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="js/scriptchatapp.js"></script>
 </head>
-<body onscroll="scrollfunction()" onload="incializarPantallas()">
+<body>
     <!--shorcut div.header>div.appname+div.search+div.submenu-->
     <div class="header">
-        <div class="appname" onclick="duplicate()">Chatapp</div>
+        <div id="appname" class="appname">Chatapp</div>
         <div class="space"></div>
         <div class="search"><i class="glyphicon glyphicon-search"></i></div>
         <div class="submenu"><i class="glyphicon glyphicon-option-vertical"></i></div>
@@ -28,12 +28,12 @@
     <!--div.menu>div.camara+div.chats+div.estados+div.llamadas-->
     <div class="menu">
         <div class="camara"><i class="glyphicon glyphicon-camera"></i></div>
-        <div id="bottom-line" class="chats" onclick="activetab(0)">CHATS</div>
-        <div id="bottom-line" class="estados" onclick="activetab(1)">ESTADOS</div>
-        <div id="bottom-line" class="llamadas" onclick="activetab(2)">LLAMADAS</div>
+        <div id="bottom-line" class="chats" data-view="chats">CHATS</div>
+        <div id="bottom-line" class="estados" data-view="estados">ESTADOS</div>
+        <div id="bottom-line" class="llamadas"  data-view="llamadas">LLAMADAS</div>
     </div>
     <!--div.row>div.icon+(div.content>div.chatname+div.timedate+div.contactname+div.status)-->
-    <div id="tabs">
+    <div id="tabs" data-view="chats">
         <div class="tabchats">
             <div class="row">
                 <div class="icon">
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <div id="tabs" style="display: none;">
+    <div id="tabs" style="display: none;" data-view="estados">
         <div class="tabestados">
             <div class="miestado">
                 <div class="row">
@@ -120,7 +120,7 @@
             </div>
         </div>
     </div>
-    <div id="tabs" style="display: none;">
+    <div id="tabs" style="display: none;" data-view="llamadas">
         <div class="tabllamadas">
             <div class="row">
                 <div class="iconllamada">

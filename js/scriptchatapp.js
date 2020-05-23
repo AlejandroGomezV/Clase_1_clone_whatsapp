@@ -7,14 +7,63 @@
     Aplicacion Chat (Whatsapp clon)
  */
 
-function incializarPantallas(){
-    //se llenaran las pantallas con informacion de muestra
-    //la pestaña de chats se llenara con 16 registros
-    for (var i=0;i<4;i++){
-        //se manda llamar la funcion que duplica los renglones de la pantalla de los chats
-        duplicate();
+document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('#bottom-line').forEach(function (div){
+        div.onclick = function(){
+            var tabestados = document.querySelectorAll('#bottom-line');
+            for (var i = 0; i<tabestados.length; i++){
+                tabestados[i].style.borderBottom = '3px solid green';
+            }
+            div.style.borderBottom = '3px solid white';
+
+            var tabs = document.querySelectorAll('#tabs');
+            for (var i = 0; i<tabestados.length; i++){
+                tabs[i].style.display = 'none';
+                if(tabs[i].dataset.view == div.dataset.view){
+                    tabs[i].style.display = 'block';
+                }
+            }
+        };
+    });
+
+    var lastScrollTop = 0;
+    window.onscroll = function (){    
+        var header;
+        header =  document.querySelector('.header');
+        var menu;
+        menu =  document.querySelector('.menu');
+        var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+       if (st > lastScrollTop){
+          // downscroll code
+          header.style.position = '';
+          header.style.top = null;
+          menu.style.top = 0;
+       } else {
+          // upscroll code
+          header.style.position = 'sticky';
+          header.style.top = 0;
+          menu.style.top = "40px";
+       }
+       lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
     }
-};
+
+    window.onload = function (){
+        //se llenaran las pantallas con informacion de muestra
+        //la pestaña de chats se llenara con 16 registros
+        for (var i=0;i<4;i++){
+            //se manda llamar la funcion que duplica los renglones de la    pantalla de los chats
+            duplicate();
+        }
+    }
+
+    document.querySelectorAll('#appname').forEach(function (div){
+        div.onclick = function(){
+            duplicate();
+        };
+    });
+});
+
+//document.getElementById('appname').addEventListener("onclick",duplicate());
 
 //funcion para duplicar el registro con datos
 function duplicate(){
@@ -26,6 +75,17 @@ function duplicate(){
     //proceso para duplicar el elemento row de las llamadas
     var rowllamada = document.querySelector('.tabllamadas').innerHTML;
     document.querySelector('.tabllamadas').innerHTML += rowllamada;
+};
+
+//Funciones de la clase anterior
+/*
+function incializarPantallas(){
+    //se llenaran las pantallas con informacion de muestra
+    //la pestaña de chats se llenara con 16 registros
+    for (var i=0;i<4;i++){
+        //se manda llamar la funcion que duplica los renglones de la pantalla de los chats
+        duplicate();
+    }
 };
 
 //funcion para cambiar de pestaña
@@ -67,9 +127,17 @@ function scrollfunction(){
       menu.style.top = "40px";
    }
    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-};
+};*/
 
 /*
 document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('#bottom-line').forEach(function (div));
-})*/
+    document.querySelectorAll('#bottom-line').forEach(function (div){
+        div.click = function(){
+            console.log(div.dataset.view)
+        };
+    });
+
+    window.onscroll = function (){
+        this.console.log(window.scrollY)
+    }
+});*/
