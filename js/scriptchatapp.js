@@ -27,7 +27,9 @@ const db = firebase.firestore();
 //db.settings ({ timestampsInSnapshots: true });
 //fin configuracion firebase
 
+//crea un row con la informacion del chat
 function renderChat(doc){
+    //crea los elementos
     let divrow = document.createElement('div');
     let divicon = document.createElement('div');
     let img = document.createElement('img');
@@ -39,6 +41,7 @@ function renderChat(doc){
     let divcontactname = document.createElement('div');
     let divstatus = document.createElement('div');
 
+    //define los atributos
     divrow.setAttribute('class', "row");
     divrow.setAttribute('data-id', doc.id);
     divicon.setAttribute('class', "icon");
@@ -54,6 +57,7 @@ function renderChat(doc){
     divcontactname.setAttribute('class', "contactname");
     divstatus.setAttribute('class',"status");
 
+    //define la jerarquia de los elementos
     divrow.appendChild(divicon);
     divicon.appendChild(img);
     divrow.appendChild(divcontent);
@@ -64,16 +68,20 @@ function renderChat(doc){
     divbottomrow.appendChild(divcontactname)
     divbottomrow.appendChild(divstatus);
 
+    //se define la informacion que se muestra desde el documento de firebase
     divchatname.textContent = doc.data().from;
     divtimedate.textContent = doc.data().timestamp.toDate().toLocaleString();
     divcontactname.textContent = doc.data().message;
     divstatus.textContent = "1";
     
+    //se agrega el nuevo row
     document.querySelector('.tabchats').appendChild(divrow);
 }
 
+//obtiene una captura de la coleccion chat
 db.collection('chat').orderBy('timestamp').get().then((snapshot) => {
     console.log(snapshot.docs);
+    //recorre los documentos de la coleccion
     snapshot.docs.forEach(doc => {
         //console.log(doc.data());
         renderChat(doc);
@@ -81,6 +89,7 @@ db.collection('chat').orderBy('timestamp').get().then((snapshot) => {
 });
 
 document.addEventListener('DOMContentLoaded', function(){
+    //añade el evento onclick a los botones de las diferentes pantallas
     document.querySelectorAll('#bottom-line').forEach(function (div){
         div.onclick = function(){
             var tabestados = document.querySelectorAll('#bottom-line');
@@ -99,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function(){
         };
     });
 
+    //funcion para manejar el header al momento de hacer scroll
     var lastScrollTop = 0;
     window.onscroll = function (){    
         var header;
@@ -120,16 +130,6 @@ document.addEventListener('DOMContentLoaded', function(){
        lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
     };
 
-    //funcion para llenar los renglones con informacion de prueba
-    /*window.onload = function (){
-        //se llenaran las pantallas con informacion de muestra
-        //la pestaña de chats se llenara con 16 registros
-        for (var i=0;i<4;i++){
-            //se manda llamar la funcion que duplica los renglones de la    pantalla de los chats
-            duplicate();
-        }
-    };*/
-
     document.querySelectorAll('#appname').forEach(function (div){
         div.onclick = function(){
             duplicate();
@@ -148,68 +148,3 @@ function duplicate(){
     var rowllamada = document.querySelector('.tabllamadas').innerHTML;
     document.querySelector('.tabllamadas').innerHTML += rowllamada;
 };
-
-//Funciones de la clase anterior (16-05-2020)
-/*
-function incializarPantallas(){
-    //se llenaran las pantallas con informacion de muestra
-    //la pestaña de chats se llenara con 16 registros
-    for (var i=0;i<4;i++){
-        //se manda llamar la funcion que duplica los renglones de la pantalla de los chats
-        duplicate();
-    }
-};
-
-//funcion para cambiar de pestaña
-//Recibe el indice de la pestaña que se esta eligiendo
-function activetab(tab){
-    //obtiene un arreglo de los elementos html con el id #bottom-line
-    var tabestados = document.querySelectorAll('#bottom-line');
-    var tabs = document.querySelectorAll('#tabs');
-    //console.log(tabs[tab]);
-    //se recorre el arreglo para acceder a cada elemento
-    for (var i = 0; i<tabestados.length; i++){
-        //se elimina el borde inferior para cada uno de los elementos
-        tabestados[i].style.borderBottom = '3px solid green';
-        tabs[i].style.display = 'none';
-        //console.log(tabestados[i]);
-    }
-    //se agrega borde inferior para la pestaña elegida
-    tabestados[tab].style.borderBottom = '3px solid white';
-    tabs[tab].style.display = 'block';
-};
-
-var lastScrollTop = 0;
-
-function scrollfunction(){
-    var header;
-    header =  document.querySelector('.header');
-    var menu;
-    menu =  document.querySelector('.menu');
-    var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-   if (st > lastScrollTop){
-      // downscroll code
-      header.style.position = '';
-      header.style.top = null;
-      menu.style.top = 0;
-   } else {
-      // upscroll code
-      header.style.position = 'sticky';
-      header.style.top = 0;
-      menu.style.top = "40px";
-   }
-   lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-};*/
-
-/*
-document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('#bottom-line').forEach(function (div){
-        div.click = function(){
-            console.log(div.dataset.view)
-        };
-    });
-
-    window.onscroll = function (){
-        this.console.log(window.scrollY)
-    }
-});*/
