@@ -139,7 +139,7 @@ h1 {
 }
 
 .separadores {
-    background-color: lightgrey;
+    background-color: lightgray;
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -172,4 +172,118 @@ h1 {
     flex: 1 1 auto;
     padding-right: 5px;
     padding-top: 5px;
+}
+
+/*estilos para la pantalla del chat*/
+.back{
+    flex: 1 1 auto;
+    padding-left: 0px;
+}
+
+.icono{
+    flex: 1 1 auto;
+}
+
+.contacto{
+    flex: 6 1 auto;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.espacio{
+    flex: 6 1 auto;
+}
+
+.videocall{
+    flex: 1 1 auto;
+}
+
+.call{
+    flex: 1 1 auto;
+}
+
+.submenu{
+    flex: 1 1 auto;
+    padding-right: 10px;
+}
+
+.back, .videocall, .call, .submenu{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.conversacion{
+    align-items: center;
+}
+
+.mensajeremitente, .mensajeemisor, .fecha{
+    width: 50%;
+    border-radius: 10px;
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+}
+
+.fecha{
+    background-color: aquamarine;
+    width: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.mensajeremitente{
+    background-color: lightgray;
+}
+
+.mensajeemisor{
+    float: right;
+    background-color: greenyellow;
+}
+
+.hora{
+    text-align: right;
+}
+
+.inputtext{
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.inputtext1{
+    flex: 6 1 auto;
+    display: flex;
+    border-radius: 195px;
+    background-color: lightgray;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.emoji, .archivo, .foto, .send{
+    flex: 1 1 auto;
+    padding: 2px;
+    margin: 5px;
+    padding-top: 5px;
+}
+
+.entrada{
+    flex: 6 1 auto;
+    width: 95%;
+    padding: 2px;
+}
+
+.inputtext2{
+    flex: 1 1 auto;
+    background-color: green;
+    border-radius: 100px;
+    width: 40px;
+    text-align: center;
+    padding-top: 10px;
+    margin-right: 5px;
 }

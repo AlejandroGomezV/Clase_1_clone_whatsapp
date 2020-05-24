@@ -1,0 +1,77 @@
+<!--
+    Autor: Manuel Alejandro Gomez Vazquez
+    Universad Interamericana Para El Desarrollo
+    Materia: Aplicaciones Moviles para internet
+    Profesor: Jesus Alberto Revilla Silva
+    Clase 1
+    Aplicacion Chat (Whatsapp clon)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="css/stylechatapp.css">
+    <!--Referencia a bootstrap 3-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+
+    
+    <script src="js/scriptchatapp.js"></script>
+</head>
+<body>
+    <!--shorcut div.header>div.appname+div.search+div.submenu-->
+    <div class="header ">
+        <div class="back"><i class="glyphicon glyphicon-arrow-left"></i></div>
+        <div class="icono">Ico</div>
+        <div class="contacto">Contacto</div>
+        <div class="espacio"></div>
+        <div class="videocall"><i class="glyphicon glyphicon-facetime-video"></i></div>
+        <div class="call"><i class="glyphicon glyphicon-earphone"></i></div>
+        <div class="submenu"><i class="glyphicon glyphicon-option-vertical"></i></div>
+    </div>
+    <div class="conversacion">
+        <div class="fecha">Hoy</div>
+        <div class="mensajeremitente">
+            <div class="mensaje">
+                Mensaje
+            </div>
+            <div class="hora">
+                3:44
+            </div>
+        </div>
+        <div class="mensajeemisor">
+            <div class="mensaje">
+                Mensaje
+            </div>
+            <div class="hora">
+                3:44
+            </div>
+        </div>
+    </div>
+    <div class="inputtext">
+        <div class="inputtext1">
+            <div class="emoji"><i class='far fa-grin'></i></div>
+            <div class="entrada">
+                <input class="form-control inputentrada" type="text" placeholder="Escribe un mensaje">
+            </div>
+            <div class="send"><i class="glyphicon glyphicon-send"></i></div>
+            <div class="archivo"><i class="glyphicon glyphicon-paperclip"></i></div>
+            <div class="foto"><i class="glyphicon glyphicon-camera"></i></div>
+        </div>
+        <div class="inputtext2">
+            <div class="microfono"><i class="fas fa-microphone"></i></div>
+        </div>
+    </div>
+</body>
+</html>
