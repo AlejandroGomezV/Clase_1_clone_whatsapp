@@ -6,6 +6,7 @@
     Clase 1
     Aplicacion Chat (Whatsapp clon)
  */
+var miusuario = "Erick";
 
 //Configuracion para Firebase
 // Your web app's Firebase configuration
@@ -75,12 +76,15 @@ function renderChat(doc){
     divstatus.textContent = "1";
     
     //se agrega el nuevo row
+    divrow.onclick = function(){
+        clickchat(divrow.dataset.id,doc);
+    };
     document.querySelector('.tabchats').appendChild(divrow);
 }
 
 //obtiene una captura de la coleccion chat
 db.collection('chat').orderBy('timestamp').get().then((snapshot) => {
-    console.log(snapshot.docs);
+    //console.log(snapshot.docs);
     //recorre los documentos de la coleccion
     snapshot.docs.forEach(doc => {
         //console.log(doc.data());
@@ -135,6 +139,12 @@ document.addEventListener('DOMContentLoaded', function(){
             duplicate();
         };
     });
+
+    /*document.querySelectorAll('#back').forEach(function (div){
+        div.onclick = function(){
+            clickback();
+        };
+    });*/
 });
 
 //funcion para duplicar el registro con datos
@@ -148,3 +158,166 @@ function duplicate(){
     var rowllamada = document.querySelector('.tabllamadas').innerHTML;
     document.querySelector('.tabllamadas').innerHTML += rowllamada;
 };
+
+//funcion para cuando se selecciona un chat
+function clickchat(id,documento){
+    console.log(id);
+    console.log(documento.data().from);
+    
+    //simulacion de transicion entre pantallas
+    var header =  document.querySelector('.header');
+    var menu =  document.querySelector('.menu');
+    var chats =  document.querySelector('.chats');
+    var estados =  document.querySelector('.estados');
+    var llamadas =  document.querySelector('.llamadas');
+    var rows = document.querySelectorAll('.row');
+    for (var i = 0; i<rows.length; i++){
+        rows[i].style.display = 'none';
+    }
+
+    //oculta la pantalla principal
+    header.style.display = 'none';
+    menu.style.display = 'none';
+    chats.style.display = 'none';
+    estados.style.display = 'none';
+    llamadas.style.display = 'none';
+
+    var headerc =  document.querySelector('.headerc');
+    var conversacion =  document.querySelector('.conversacion');
+    var inputtext =  document.querySelector('.inputtext');
+
+    //muestra la pantalla de la conversacion
+    headerc.style.display = 'flex';
+    conversacion.style.display = 'block';
+    inputtext.style.display = 'flex';
+
+    obtenerConversacion("Irma");
+    var nombrechat="";
+
+    nombrechat = document.querySelector('.contacto');
+    nombrechat.textContent = "Irma";
+}
+
+//obtiene los chats con un contacto en especifico
+function obtenerConversacion(contacto){
+    var chats;
+    var fecha="";
+    
+    //obtiene una captura de la coleccion chat
+    db.collection('chat').orderBy('timestamp').get().then((snapshot) => {
+        //console.log(snapshot.docs);
+        //recorre los documentos de la coleccion
+        snapshot.docs.forEach(doc => {
+            //console.log(fecha+" "+doc.data().timestamp.toDate().toLocaleString());
+             
+            let day=doc.data().timestamp.toDate().getDate();
+            let month=doc.data().timestamp.toDate().getMonth();
+            let year=doc.data().timestamp.toDate().getFullYear();
+            var fechadoc=day+" - "+month+" - "+year;
+
+            //mensaje de contacto hacia mi
+            if(doc.data().from==contacto && doc.data().to==miusuario){
+                if(fecha != fechadoc){  
+                    fecha=fechadoc;
+                    document.querySelector('.rowc').appendChild(renderFecha(fecha));
+                }
+                document.querySelector('.rowc').appendChild(renderMensajeR(doc));
+            }
+            //mensaje de mi hacia concacto
+            else if(doc.data().from==miusuario && doc.data().to==contacto){
+                if(fecha != fechadoc){  
+                    fecha=fechadoc;
+                    document.querySelector('.rowc').appendChild(renderFecha(fecha));
+                }
+                document.querySelector('.rowc').appendChild(renderMensajeE(doc));
+            }
+        });
+    });
+}
+
+function renderFecha(fecha){
+    let divrow1 = document.createElement('div');
+    let divfecha = document.createElement('div');
+    
+    divrow1.setAttribute('class', "row1");
+    divfecha.setAttribute('class', "fecha");
+
+    divrow1.appendChild(divfecha);
+
+    divfecha.textContent = fecha;
+
+    return divrow1;
+}
+
+function renderMensajeR(doc){
+    let divrow2 = document.createElement('div');
+    let divmensajeremitente = document.createElement('div');
+    let divmensaje = document.createElement('div');
+    let divhora = document.createElement('div');
+
+    divrow2.setAttribute('class', "row2");
+    divmensajeremitente.setAttribute('class', "mensajeremitente");
+    divmensaje.setAttribute('class', "mensaje");
+    divhora.setAttribute('class', "hora");
+
+    divrow2.appendChild(divmensajeremitente);
+    divmensajeremitente.appendChild(divmensaje);
+    divmensajeremitente.appendChild(divhora);
+
+    divmensaje.textContent = doc.data().message;
+    divhora.textContent = doc.data().timestamp.toDate().getHours()+" : "+doc.data().timestamp.toDate().getMinutes();
+
+    return divrow2;
+}
+
+function renderMensajeE(doc){
+    let divrow3 = document.createElement('div');
+    let divmensajeemisor = document.createElement('div');
+    let divmensaje = document.createElement('div');
+    let divhora = document.createElement('div');
+
+    divrow3.setAttribute('class', "row3");
+    divmensajeemisor.setAttribute('class', "mensajeemisor");
+    divmensaje.setAttribute('class', "mensaje");
+    divhora.setAttribute('class', "hora");
+
+    divrow3.appendChild(divmensajeemisor);
+    divmensajeemisor.appendChild(divmensaje);
+    divmensajeemisor.appendChild(divhora);
+
+    divmensaje.textContent = doc.data().message;
+    divhora.textContent = doc.data().timestamp.toDate().getHours()+" : "+doc.data().timestamp.toDate().getMinutes();
+
+    return divrow3;
+}
+
+/*//funcion para regresar a la pantalla principal
+function clickback(){
+    
+    //simulacion de transicion entre pantallas
+    var header =  document.querySelector('.header');
+    var menu =  document.querySelector('.menu');
+    var chats =  document.querySelector('.chats');
+    var estados =  document.querySelector('.estados');
+    var llamadas =  document.querySelector('.llamadas');
+    var rows = document.querySelectorAll('.row');
+    for (var i = 0; i<rows.length; i++){
+        rows[i].style.display = 'block';
+    }
+
+    //muestra la pantalla principal
+    header.style.display = 'block';
+    menu.style.display = 'block';
+    chats.style.display = 'block';
+    estados.style.display = 'block';
+    llamadas.style.display = 'block';
+
+    var headerc =  document.querySelector('.headerc');
+    var conversacion =  document.querySelector('.conversacion');
+    var inputtext =  document.querySelector('.inputtext');
+
+    //oculta la pantalla de la conversacion
+    headerc.style.display = 'none';
+    conversacion.style.display = 'none';
+    inputtext.style.display = 'none';
+}*/

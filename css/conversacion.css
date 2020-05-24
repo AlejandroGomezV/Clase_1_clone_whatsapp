@@ -1,11 +1,10 @@
 /*estilos para la pantalla del chat*/
-.header {
+.headerc {
     display: flex;
     background-color: green;
     color: white;
     padding-top: 10px;
     padding-bottom: 10px;
-    text-align: right;
     position: sticky;
     top: 0;
 }
@@ -20,7 +19,7 @@
 }
 
 .contacto{
-    flex: 6 1 auto;
+    flex: 5 1 auto;
     text-align: left;
     padding-left: 10px;
 }
@@ -37,7 +36,7 @@
     flex: 1 1 auto;
 }
 
-.submenu{
+.submenuc{
     flex: 1 1 auto;
     padding-right: 10px;
 }
@@ -51,7 +50,7 @@
     flex: 1 1 auto;
 }
 
-.back, .videocall, .call, .submenu{
+.back, .videocall, .call, .submenuc{
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -97,8 +96,8 @@
 .inputtext{
     display: flex;
     width: 100%;
-    position: absolute;
     position: sticky;
+    position: fixed;
     bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;

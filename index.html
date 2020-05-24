@@ -13,6 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
     <link rel="stylesheet" href="css/stylechatapp.css">
+    <link rel="stylesheet" href="css/conversacion.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
     <!--Referencia a bootstrap 3-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -42,11 +45,11 @@
         <div id="bottom-line" class="estados" data-view="estados">ESTADOS</div>
         <div id="bottom-line" class="llamadas"  data-view="llamadas">LLAMADAS</div>
     </div>
-    <div id="tabs" data-view="chats">
+    <div id="tabs" data-view="chats" class="chats">
         <div class="tabchats">
         </div>
     </div>
-    <div id="tabs" style="display: none;" data-view="estados">
+    <div id="tabs" style="display: none;" data-view="estados" class="estados">
         <div class="tabestados">
             <div class="miestado">
                 <div class="row">
@@ -114,7 +117,7 @@
             </div>
         </div>
     </div>
-    <div id="tabs" style="display: none;" data-view="llamadas">
+    <div id="tabs" style="display: none;" data-view="llamadas" class="llamadas">
         <div class="tabllamadas">
             <div class="row">
                 <div class="iconllamada">
@@ -136,6 +139,35 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!--Inicia pantalla conversaciones-->
+    <div class="headerc" style="display: none;">
+        <div class="back"><a href="index.html"><i class="glyphicon glyphicon-arrow-left"></i></a></div>
+        <div class="icono"><img src="images/microphone-42672_640.png" alt="Avatar" height="30px" width="30px" srcset=""></div>
+        <div class="contacto">Contacto</div>
+        <div class="espacio"></div>
+        <div class="videocall"><i class="glyphicon glyphicon-facetime-video"></i></div>
+        <div class="call"><i class="glyphicon glyphicon-earphone"></i></div>
+        <div class="submenuc"><i class="glyphicon glyphicon-option-vertical"></i></div>
+    </div>
+    <div class="conversacion" style="display: none;">
+        <div class="rowc">
+        </div>
+    </div>
+    <div class="inputtext" style="display: none;">
+        <div class="inputtext1">
+            <div class="emoji"><i class='far fa-grin'></i></div>
+            <div class="entrada">
+                <input class="form-control inputentrada" type="text" placeholder="Escribe un mensaje">
+            </div>
+            <div class="send"><i class="glyphicon glyphicon-send"></i></div>
+            <div class="archivo"><i class="glyphicon glyphicon-paperclip"></i></div>
+            <div class="foto"><i class="glyphicon glyphicon-camera"></i></div>
+        </div>
+        <div class="inputtext2">
+            <div class="microfono"><i class="fas fa-microphone"></i></div>
         </div>
     </div>
 </body>
