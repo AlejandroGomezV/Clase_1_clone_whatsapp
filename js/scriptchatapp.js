@@ -6,7 +6,7 @@
     Clase 1
     Aplicacion Chat (Whatsapp clon)
  */
-var miusuario = "Erick";
+var miusuario = "Alex";
 
 //Configuracion para Firebase
 // Your web app's Firebase configuration
@@ -29,7 +29,7 @@ const db = firebase.firestore();
 //fin configuracion firebase
 
 //crea un row con la informacion del chat
-function renderChat(doc){
+function renderChat(doc,nchats){
     //crea los elementos
     let divrow = document.createElement('div');
     let divicon = document.createElement('div');
@@ -45,6 +45,14 @@ function renderChat(doc){
     //define los atributos
     divrow.setAttribute('class', "row");
     divrow.setAttribute('data-id', doc.id);
+    
+    if(doc.data().from==miusuario){
+        divrow.setAttribute('data-contact', doc.data().to);
+    }
+    else{
+        divrow.setAttribute('data-contact', doc.data().from);
+    }
+    
     divicon.setAttribute('class', "icon");
     img.setAttribute('src',"images/black-power-button-1428134_640.png");
     img.setAttribute('alt', "Avatar");
@@ -70,26 +78,61 @@ function renderChat(doc){
     divbottomrow.appendChild(divstatus);
 
     //se define la informacion que se muestra desde el documento de firebase
-    divchatname.textContent = doc.data().from;
+    if(doc.data().from==miusuario){
+        divchatname.textContent = doc.data().to;
+    }
+    else{
+        divchatname.textContent = doc.data().from;
+    }
     divtimedate.textContent = doc.data().timestamp.toDate().toLocaleString();
-    divcontactname.textContent = doc.data().message;
-    divstatus.textContent = "1";
+    divcontactname.textContent = doc.data().message.slice(0,25);
+    divstatus.textContent = nchats;
     
     //se agrega el nuevo row
     divrow.onclick = function(){
-        clickchat(divrow.dataset.id,doc);
+        clickchat(divrow.dataset.contact,doc);
     };
     document.querySelector('.tabchats').appendChild(divrow);
 }
 
 //obtiene una captura de la coleccion chat
 db.collection('chat').orderBy('timestamp').get().then((snapshot) => {
+    var arrayConversaciones = {};
+    var arrayConversacion = {};
     //console.log(snapshot.docs);
     //recorre los documentos de la coleccion
     snapshot.docs.forEach(doc => {
         //console.log(doc.data());
-        renderChat(doc);
+        //renderChat(doc);
+        if(doc.data().from==miusuario || doc.data().to==miusuario){
+            if(doc.data().from!=miusuario){
+                if(arrayConversaciones[doc.data().from]==undefined){
+                    arrayConversaciones[doc.data().from]=[];
+                    arrayConversaciones[doc.data().from].push(doc);
+                }
+                else{
+                    arrayConversaciones[doc.data().from].push(doc);
+                }
+            }
+            else if(doc.data().to!=miusuario){
+                if(arrayConversaciones[doc.data().to]==undefined){
+                    arrayConversaciones[doc.data().to]=[];
+                    arrayConversaciones[doc.data().to].push(doc);
+                }
+                else{
+                    arrayConversaciones[doc.data().to].push(doc);
+                }
+            }
+        }
     });
+    //array[array.length - 1].descripcion
+    //arrayConversaciones.forEach(item=>console.log(item[item.length-1]));
+    // Or, using array extras
+    Object.entries(arrayConversaciones).forEach(([key, value]) => {
+        //console.log(value[value.length-1]);
+        renderChat(value[value.length-1],value.length);   
+    });
+    //console.log(arrayConversaciones);
 });
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -160,8 +203,8 @@ function duplicate(){
 };
 
 //funcion para cuando se selecciona un chat
-function clickchat(id,documento){
-    console.log(id);
+function clickchat(contact,documento){
+    console.log(contact);
     console.log(documento.data().from);
     
     //simulacion de transicion entre pantallas
@@ -191,11 +234,11 @@ function clickchat(id,documento){
     conversacion.style.display = 'block';
     inputtext.style.display = 'flex';
 
-    obtenerConversacion("Irma");
+    obtenerConversacion(contact);
     var nombrechat="";
 
     nombrechat = document.querySelector('.contacto');
-    nombrechat.textContent = "Irma";
+    nombrechat.textContent = contact;
 }
 
 //obtiene los chats con un contacto en especifico
@@ -209,7 +252,6 @@ function obtenerConversacion(contacto){
         //recorre los documentos de la coleccion
         snapshot.docs.forEach(doc => {
             //console.log(fecha+" "+doc.data().timestamp.toDate().toLocaleString());
-             
             let day=doc.data().timestamp.toDate().getDate();
             let month=doc.data().timestamp.toDate().getMonth();
             let year=doc.data().timestamp.toDate().getFullYear();
@@ -217,18 +259,22 @@ function obtenerConversacion(contacto){
 
             //mensaje de contacto hacia mi
             if(doc.data().from==contacto && doc.data().to==miusuario){
+                //valida cambio en la fecha
                 if(fecha != fechadoc){  
                     fecha=fechadoc;
                     document.querySelector('.rowc').appendChild(renderFecha(fecha));
                 }
+                //crea el div con el mensaje
                 document.querySelector('.rowc').appendChild(renderMensajeR(doc));
             }
             //mensaje de mi hacia concacto
             else if(doc.data().from==miusuario && doc.data().to==contacto){
+                //valida cambio en la fecha
                 if(fecha != fechadoc){  
                     fecha=fechadoc;
                     document.querySelector('.rowc').appendChild(renderFecha(fecha));
                 }
+                //crea el div con el mensaje
                 document.querySelector('.rowc').appendChild(renderMensajeE(doc));
             }
         });
