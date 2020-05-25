@@ -183,12 +183,60 @@ document.addEventListener('DOMContentLoaded', function(){
         };
     });
 
+    document.querySelectorAll('.send').forEach(function (div){
+        div.onclick = function(){
+            enviarmensaje();
+        };
+    });
+
     /*document.querySelectorAll('#back').forEach(function (div){
         div.onclick = function(){
             clickback();
         };
     });*/
 });
+
+function enviarmensaje(){
+    let fechahoy = new Date();
+    let msg = document.getElementsByName("mensaje")[0].value;
+
+    let divrow3 = document.createElement('div');
+    let divmensajeemisor = document.createElement('div');
+    let divmensaje = document.createElement('div');
+    let divhora = document.createElement('div');
+
+    divrow3.setAttribute('class', "row3");
+    divmensajeemisor.setAttribute('class', "mensajeemisor");
+    divmensaje.setAttribute('class', "mensaje");
+    divhora.setAttribute('class', "hora");
+
+    divrow3.appendChild(divmensajeemisor);
+    divmensajeemisor.appendChild(divmensaje);
+    divmensajeemisor.appendChild(divhora);
+
+    divmensaje.textContent = msg;
+    divhora.textContent = fechahoy.getHours()+" : "+fechahoy.getMinutes();
+
+    document.getElementsByName("mensaje")[0].value = "";
+
+    let btnsend = "";
+    btnsend = document.querySelector('.send');
+
+    // Add a new document in collection "cities"
+    db.collection("chat").doc().set({
+        from: miusuario,
+        to: btnsend.getAttribute("data-contact"),
+        timestamp: fechahoy,
+        message: msg
+    })
+    .then(function() {
+        console.log("Document successfully written!");
+        document.querySelector('.rowc').appendChild(divrow3);
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+}
 
 //funcion para duplicar el registro con datos
 function duplicate(){
@@ -235,7 +283,10 @@ function clickchat(contact,documento){
     inputtext.style.display = 'flex';
 
     obtenerConversacion(contact);
-    var nombrechat="";
+    let nombrechat = "";
+    let btnsend = "";
+    btnsend = document.querySelector('.send');
+    btnsend.setAttribute('data-contact', contact);
 
     nombrechat = document.querySelector('.contacto');
     nombrechat.textContent = contact;
