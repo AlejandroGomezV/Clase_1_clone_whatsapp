@@ -96,7 +96,7 @@ function renderChat(doc,nchats){
 }
 
 //obtiene una captura de la coleccion chat
-db.collection('chat').orderBy('timestamp').get().then((snapshot) => {
+db.collection('chat').orderBy('timestamp','desc').get().then((snapshot) => {
     var arrayConversaciones = {};
     //console.log(snapshot.docs);
     //recorre los documentos de la coleccion
@@ -126,10 +126,10 @@ db.collection('chat').orderBy('timestamp').get().then((snapshot) => {
     });
     //array[array.length - 1].descripcion
     //arrayConversaciones.forEach(item=>console.log(item[item.length-1]));
-    // Or, using array extras
+
     Object.entries(arrayConversaciones).forEach(([key, value]) => {
         //console.log(value[value.length-1]);
-        renderChat(value[value.length-1],value.length);   
+        renderChat(value[0],value.length);   
     });
     //console.log(arrayConversaciones);
 });
