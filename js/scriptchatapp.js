@@ -98,7 +98,6 @@ function renderChat(doc,nchats){
 //obtiene una captura de la coleccion chat
 db.collection('chat').orderBy('timestamp').get().then((snapshot) => {
     var arrayConversaciones = {};
-    var arrayConversacion = {};
     //console.log(snapshot.docs);
     //recorre los documentos de la coleccion
     snapshot.docs.forEach(doc => {
@@ -364,6 +363,10 @@ function renderMensajeR(doc){
     divmensaje.textContent = doc.data().message;
     divhora.textContent = doc.data().timestamp.toDate().getHours()+" : "+doc.data().timestamp.toDate().getMinutes();
 
+    divmensajeremitente.onclick = function(){
+        deletemensaje(divrow2, doc.id);
+    };
+
     return divrow2;
 }
 
@@ -385,9 +388,28 @@ function renderMensajeE(doc){
     divmensaje.textContent = doc.data().message;
     divhora.textContent = doc.data().timestamp.toDate().getHours()+" : "+doc.data().timestamp.toDate().getMinutes();
 
+    divmensajeemisor.onclick = function(){
+        deletemensaje(divrow3, doc.id);
+    };
+
     return divrow3;
 }
 
+
+function deletemensaje(div,id){
+    //alert(id);
+    if (confirm("¿Desea eliminar este mensaje?")) {
+        console.log("Se inicio el proceso para eliminar el mensaje");
+        div.style.display = "none";
+        db.collection("chat").doc(id).delete().then(function() {
+            console.log("Document successfully deleted!");
+        }).catch(function(error) {
+            console.error("Error removing document: ", error);
+        });
+    } else {
+        console.log("Se cancelo el proceso para eliminar el mensaje");
+    }
+}
 /*//funcion para regresar a la pantalla principal
 function clickback(){
     
