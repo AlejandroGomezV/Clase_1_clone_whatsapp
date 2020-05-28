@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     document.querySelectorAll('.send').forEach(function (div){
         div.onclick = function(){
-            enviarmensaje();
+            enviarmensaje(0);
         };
     });
 
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });*/
 });
 
-function enviarmensaje(){
+function enviarmensaje(id){
     let fechahoy = new Date();
     let msg = document.getElementsByName("mensaje")[0].value;
 
@@ -221,20 +221,44 @@ function enviarmensaje(){
     let btnsend = "";
     btnsend = document.querySelector('.send');
 
-    // Add a new document in collection "cities"
-    db.collection("chat").doc().set({
-        from: miusuario,
-        to: btnsend.getAttribute("data-contact"),
-        timestamp: fechahoy,
-        message: msg
-    })
-    .then(function() {
-        console.log("Document successfully written!");
-        document.querySelector('.rowc').appendChild(divrow3);
-    })
-    .catch(function(error) {
-        console.error("Error writing document: ", error);
-    });
+    if(id==0){//insertar nuevo registro
+        // Add a new document in collection "cities"
+        db.collection("chat").doc().set({
+            from: miusuario,
+            to: btnsend.getAttribute("data-contact"),
+            timestamp: fechahoy,
+            message: msg
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+            document.querySelector('.rowc').appendChild(divrow3);
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+    }
+    else{//actualizar registro
+        //alert("update");
+        db.collection("chat").doc(id).set({
+            from: miusuario,
+            to: btnsend.getAttribute("data-contact"),
+            message: msg,
+            timestamp: fechahoy
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+            document.querySelectorAll('.send').forEach(function (div){
+                div.onclick = function(){
+                    enviarmensaje(0);
+                };
+            });
+            var divrowelimando = document.getElementById(id);
+            divrowelimando.style.display="none";
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+    }
 }
 
 //funcion para duplicar el registro con datos
@@ -375,15 +399,20 @@ function renderMensajeE(doc){
     let divmensajeemisor = document.createElement('div');
     let divmensaje = document.createElement('div');
     let divhora = document.createElement('div');
+    let iconoeditar = document.createElement('i');
 
     divrow3.setAttribute('class', "row3");
     divmensajeemisor.setAttribute('class', "mensajeemisor");
+    divrow3.setAttribute('id', doc.id);
     divmensaje.setAttribute('class', "mensaje");
     divhora.setAttribute('class', "hora");
+    iconoeditar.setAttribute('class', "glyphicon glyphicon-pencil");
+    iconoeditar.setAttribute('id', "editarmensaje");
 
     divrow3.appendChild(divmensajeemisor);
     divmensajeemisor.appendChild(divmensaje);
     divmensajeemisor.appendChild(divhora);
+    divrow3.appendChild(iconoeditar);
 
     divmensaje.textContent = doc.data().message;
     divhora.textContent = doc.data().timestamp.toDate().getHours()+" : "+doc.data().timestamp.toDate().getMinutes();
@@ -392,9 +421,21 @@ function renderMensajeE(doc){
         deletemensaje(divrow3, doc.id);
     };
 
+    iconoeditar.onclick = function(){
+        editarmensaje(doc.data().message, doc.id);
+    }
+
     return divrow3;
 }
 
+function editarmensaje(mensaje, id){
+    var inputMensaje = document.getElementById("mensaje");
+    inputMensaje.value = mensaje;
+    var send = document.getElementById("send");
+    send.onclick = function(){
+        enviarmensaje(id);
+    };
+}
 
 function deletemensaje(div,id){
     //alert(id);
