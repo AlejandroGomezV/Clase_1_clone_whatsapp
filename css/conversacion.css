@@ -1,3 +1,12 @@
+/*
+    Autor: Manuel Alejandro Gomez Vazquez
+    Universad Interamericana Para El Desarrollo
+    Materia: Aplicaciones Moviles para internet
+    Profesor: Jesus Alberto Revilla Silva
+    Sesion 1, 2, 3, 4
+    Aplicacion Chat (Whatsapp clon)
+*/
+
 /*estilos para la pantalla del chat*/
 .headerc {
     display: flex;
@@ -140,5 +149,6 @@
 }
 
 .glyphicon-pencil, .glyphicon-trash {
-    padding: 5px;
+    padding: 2px;
+    margin: 2px;
 }
