@@ -195,11 +195,12 @@ document.addEventListener('DOMContentLoaded', function(){
     });*/
 });
 
+//INSERT y UPDATE en FIREBASE
 function enviarmensaje(id){
     let fechahoy = new Date();
     let msg = document.getElementsByName("mensaje")[0].value;
 
-    let divrow3 = document.createElement('div');
+    /*let divrow3 = document.createElement('div');
     let divmensajeemisor = document.createElement('div');
     let divmensaje = document.createElement('div');
     let divhora = document.createElement('div');
@@ -216,7 +217,7 @@ function enviarmensaje(id){
     divmensaje.textContent = msg;
     divhora.textContent = fechahoy.getHours()+" : "+fechahoy.getMinutes();
 
-    document.getElementsByName("mensaje")[0].value = "";
+    document.getElementsByName("mensaje")[0].value = "";*/
 
     let btnsend = "";
     btnsend = document.querySelector('.send');
@@ -231,7 +232,7 @@ function enviarmensaje(id){
         })
         .then(function() {
             console.log("Document successfully written!");
-            document.querySelector('.rowc').appendChild(divrow3);
+            //document.querySelector('.rowc').appendChild(divrow3);
         })
         .catch(function(error) {
             console.error("Error writing document: ", error);
@@ -252,13 +253,27 @@ function enviarmensaje(id){
                     enviarmensaje(0);
                 };
             });
-            var divrowelimando = document.getElementById(id);
+            var divrowelimando = document.getElementById("mensaje"+id);
             divrowelimando.style.display="none";
         })
         .catch(function(error) {
             console.error("Error writing document: ", error);
         });
     }
+    db.collection("chat").where("timestamp", "==", fechahoy).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            divrow3 = renderMensajeE(doc);
+            document.querySelector('.rowc').appendChild(divrow3);
+            var mensaje = document.getElementById('mensaje');
+            mensaje.value = "";
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
 }
 
 //funcion para duplicar el registro con datos
@@ -387,9 +402,9 @@ function renderMensajeR(doc){
     divmensaje.textContent = doc.data().message;
     divhora.textContent = doc.data().timestamp.toDate().getHours()+" : "+doc.data().timestamp.toDate().getMinutes();
 
-    divmensajeremitente.onclick = function(){
+    /*divmensajeremitente.onclick = function(){
         deletemensaje(divrow2, doc.id);
-    };
+    };*/
 
     return divrow2;
 }
@@ -400,30 +415,40 @@ function renderMensajeE(doc){
     let divmensaje = document.createElement('div');
     let divhora = document.createElement('div');
     let iconoeditar = document.createElement('i');
+    let iconoeliminar = document.createElement('i');
 
     divrow3.setAttribute('class', "row3");
     divmensajeemisor.setAttribute('class', "mensajeemisor");
-    divrow3.setAttribute('id', doc.id);
+    divrow3.setAttribute('id', "mensaje"+doc.id);
     divmensaje.setAttribute('class', "mensaje");
     divhora.setAttribute('class', "hora");
     iconoeditar.setAttribute('class', "glyphicon glyphicon-pencil");
     iconoeditar.setAttribute('id', "editarmensaje");
+    iconoeliminar.setAttribute('class', "glyphicon glyphicon-trash");
+    iconoeliminar.setAttribute('id', "editarmensaje");
 
     divrow3.appendChild(divmensajeemisor);
     divmensajeemisor.appendChild(divmensaje);
     divmensajeemisor.appendChild(divhora);
-    divrow3.appendChild(iconoeditar);
+    divmensajeemisor.appendChild(iconoeditar);
 
     divmensaje.textContent = doc.data().message;
     divhora.textContent = doc.data().timestamp.toDate().getHours()+" : "+doc.data().timestamp.toDate().getMinutes();
-
-    divmensajeemisor.onclick = function(){
-        deletemensaje(divrow3, doc.id);
-    };
-
+    
     iconoeditar.onclick = function(){
         editarmensaje(doc.data().message, doc.id);
     }
+
+    iconoeliminar.onclick = function(){
+        deletemensaje(divrow3, doc.id);
+    }
+
+    divmensajeemisor.appendChild(iconoeditar);
+    divmensajeemisor.appendChild(iconoeliminar);
+
+    /*divmensajeemisor.onclick = function(){
+        deletemensaje(divrow3, doc.id);
+    };*/
 
     return divrow3;
 }

@@ -138,3 +138,7 @@
 #editarmensaje{
     border: 1px solid black;
 }
+
+.glyphicon-pencil, .glyphicon-trash {
+    padding: 5px;
+}
