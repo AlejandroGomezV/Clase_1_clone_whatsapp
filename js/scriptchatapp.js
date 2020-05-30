@@ -9,9 +9,10 @@
 var miusuario = "Alex";
 
 //Configuracion para Firebase
+/*
 //database 1
 // Your web app's Firebase configuration
-/*var firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyAOjJh5tLTxrrSMMcmzg10hQLHAPJInAjk",
     authDomain: "chatapp-2a11f.firebaseapp.com",
     databaseURL: "https://chatapp-2a11f.firebaseio.com",
@@ -33,6 +34,20 @@ var firebaseConfig = {
     appId: "1:1017162347060:web:472317d8d5adac4e491061",
     measurementId: "G-0GYGF64HTC"
 };
+
+/*
+// database alex
+var firebaseConfig = {
+    apiKey: "AIzaSyAOESf8mgK7Jml71Q0xhf9TLuoF_Q4Xskc",
+    authDomain: "chatapp-a2553.firebaseapp.com",
+    databaseURL: "https://chatapp-a2553.firebaseio.com",
+    projectId: "chatapp-a2553",
+    storageBucket: "chatapp-a2553.appspot.com",
+    messagingSenderId: "64538149384",
+    appId: "1:64538149384:web:56b1d979541d134e38c7bd",
+    measurementId: "G-MGX6JK7REE"
+};*/
+
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
