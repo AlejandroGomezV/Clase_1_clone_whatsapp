@@ -9,6 +9,7 @@
 var miusuario = "Alex";
 
 //Configuracion para Firebase
+//database 1
 // Your web app's Firebase configuration
 /*var firebaseConfig = {
     apiKey: "AIzaSyAOjJh5tLTxrrSMMcmzg10hQLHAPJInAjk",
@@ -21,6 +22,7 @@ var miusuario = "Alex";
     measurementId: "G-PCW5869LNL"
 };*/
 
+//database alberto
 var firebaseConfig = {
     apiKey: "AIzaSyBQxF15lOBk4qejuvnw9h-4yLe48Xe20NE",
     authDomain: "chatapp-98d00.firebaseapp.com",
@@ -30,7 +32,7 @@ var firebaseConfig = {
     messagingSenderId: "1017162347060",
     appId: "1:1017162347060:web:472317d8d5adac4e491061",
     measurementId: "G-0GYGF64HTC"
-  };
+};
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
